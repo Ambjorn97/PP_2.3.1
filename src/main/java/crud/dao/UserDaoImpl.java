@@ -2,23 +2,20 @@ package crud.dao;
 
 import crud.model.User;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    private  EntityManager entityManager;
-
     @PersistenceContext
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+    private EntityManager entityManager;
 
 
     @Override
@@ -37,13 +34,22 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void updateUser(User user) {
         Session session = entityManager.unwrap(Session.class);
+        int id = user.getId();
+        User existingUser = session.get(User.class, id);
+        if (existingUser == null) {
+            throw new EntityNotFoundException();
+        }
         session.merge(user);
     }
 
     @Override
     public void deleteUser(int id) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createQuery("delete from User where id=:id");
+        User user = session.get(User.class, id);
+        if (user == null) {
+            throw new EntityNotFoundException();
+        }
+        Query query = session.createQuery("delete from User where id = :id");
         query.setParameter("id", id);
         query.executeUpdate();
     }

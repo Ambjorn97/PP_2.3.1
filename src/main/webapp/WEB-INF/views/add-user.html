@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Add User</title>
+    <meta charset="UTF-8">
+    <title>Add User</title>
 </head>
 <body>
-<form action="/users/add" method="post">
-  <label for="name">Name:</label>
-  <input type="text" id="name" name="name" required>
-  <br>
-  <label for="surname">Surname:</label>
-  <input type="text" id="surname" name="surname" required>
-  <br>
-  <button type="submit">Add</button>
+<form action="#" th:action="@{/users/add}" th:object="${user}" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" th:field="*{name}">
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Invalid name</span>
+    <br>
+    <label for="surname">Surname:</label>
+    <input type="text" id="surname" th:field="*{surname}">
+    <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Invalid surname</span>
+    <br>
+    <button type="submit">Add</button>
 </form>
 </body>
 </html>

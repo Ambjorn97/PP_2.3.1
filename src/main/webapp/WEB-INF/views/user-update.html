@@ -6,17 +6,19 @@
 </head>
 <body>
 <form th:object="${user}" method="post" th:action="@{/users/update}">
-  <label for="id">ID:</label>
-  <input type="text" th:field="*{id}" id="id" required>
-  <br>
-  <label for="name">Name:</label>
-  <input type="text" th:field="*{name}" id="name" required>
-  <br>
-  <label for="surname">Surname:</label>
-  <input type="text" th:field="*{surname}" id="surname" required>
-  <br>
+    <label for="id">ID:</label>
+    <input type="text" th:field="*{id}" id="id" required>
+    <br>
+    <label for="name">Name:</label>
+    <input type="text" th:field="*{name}" id="name">
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{surname}">Invalid name</span>
+    <br>
+    <label for="surname">Surname:</label>
+    <input type="text" th:field="*{surname}" id="surname">
+    <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Invalid name</span>
+    <br>
 
-  <button type="submit">Update</button>
+    <button type="submit">Update</button>
 </form>
 </body>
 </html>

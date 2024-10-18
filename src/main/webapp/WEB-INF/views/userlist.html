@@ -41,7 +41,7 @@
 <div class="user-container">
     <th:block th:each="u : ${users}">
         <div class="user-item">
-            <h1 th:text="${u}"></h1> <a th:href="@{/users/user(id=${u.id})}">check</a>
+            <h1 th:utext="${u}"></h1> <a th:href="@{/users/user(id=${u.id})}">check</a>
         </div>
     </th:block>
     <a href="/users/add" class="user-button">Add new user</a> <a href="/users/delete" class="user-button">Delete user</a>

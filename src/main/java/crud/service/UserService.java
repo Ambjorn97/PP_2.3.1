@@ -5,9 +5,13 @@ import crud.model.User;
 import java.util.List;
 
 public interface UserService {
-    public List<User> getAllUsers();
-    public void addUser(User user);
-    public void updateUser(User user);
-    public void deleteUser(int id);
-    public User getUserById(int id);
+    List<User> getAllUsers();
+
+    void addUser(User user);
+
+    void updateUser(User user);
+
+    void deleteUser(int id);
+
+    User getUserById(int id);
 }
